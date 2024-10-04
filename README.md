@@ -15,10 +15,10 @@ A web app that classifies uploaded photos into aesthetics using a fine-tuned CLI
 - Built with React Native Expo front end and Flask backend
 
 ## Project Structure
+```
 aesthetic-matcher
 ├── client/                  # React Native frontend code
 ├── datarefinement/           # Scripts for data refinement and preprocessing
 ├── finetuning/               # Model fine-tuning scripts (PyTorch, Hugging Face)
-├── server/                   # Flask server backend for handling image processing
-├── .gitignore                # Files to ignore in the repo
-└── README.md                 # Project documentation
+└── server/                   # Flask server backend for handling image processing
+```
