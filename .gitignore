@@ -1,0 +1,22 @@
+# /client
+client/node_modules/
+client/.expo/
+client/.vscode/
+client/android/
+client/ios/
+
+# /datarefinement
+/datarefinement/aesthetics*
+/datarefinement/aesthetic*
+
+# /finetuning
+/finetuning/aesthetics*
+/finetuning/output
+
+# /server
+
+# local env files
+*__pycache__*
+.env
+*.sh
+.DS_Store
