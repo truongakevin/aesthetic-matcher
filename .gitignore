@@ -4,6 +4,7 @@ client/.expo/
 client/.vscode/
 client/android/
 client/ios/
+client/dist/
 
 # /datarefinement
 /datarefinement/aesthetics*
