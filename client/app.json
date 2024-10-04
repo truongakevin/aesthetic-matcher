@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "aesthetic-matcher",
+    "slug": "aesthetic-matcher",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/skull-w.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#212121"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.kevintruong.pictoplaylist",
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true,
+          "NSAllowsArbitraryLoadsInWebContent": true
+        }
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "android.kevintruong.pictoplaylist"
+    },
+    "web": {
+      "output": {
+        "publicPath": "/aesthetic-matcher/"
+      }
+    }
+  }
+}
