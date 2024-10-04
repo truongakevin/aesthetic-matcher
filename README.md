@@ -5,6 +5,9 @@ A web app that classifies uploaded photos into aesthetics using a fine-tuned CLI
   <img src="am-screenshot1.png" alt="main page" width="250" height="475"/>
   <img src="am-screenshot2.png" alt="processed images" width="250" height="475"/>
   <img src="am-screenshot3.png" alt="post process menu" width="250" height="475"/>
+  <br>
+  <a href="https://kevinatruong.com/aesthetic-matcher">Aesthetic Matcher Demo Website</a>
+  <br>
 </p>
 
 ## Features
