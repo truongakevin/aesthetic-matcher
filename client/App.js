@@ -60,7 +60,7 @@ export default function App() {
     });
 
     if (!result.cancelled) {
-      setImage(result.assets[0].uri);
+      setImages([result.assets[0].uri]);
     }
   };
 
