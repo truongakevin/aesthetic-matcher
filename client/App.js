@@ -55,11 +55,12 @@ export default function App() {
 
     let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: false,
       quality: 1,
     });
 
     if (!result.cancelled) {
-      setImages([...images, result.uri]);  // Append new image to the array
+      setImage(result.assets[0].uri);
     }
   };
 
