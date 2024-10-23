@@ -6,14 +6,15 @@ const imagesContainer: React.CSSProperties = {
   flexWrap: 'wrap',
   justifyContent: 'center',
   margin: '10px 0',
-  gap: '15px',
+  gap: '10px',
 };
 
 const image: React.CSSProperties = {
+  height: 'auto',
   width: '300px',
-  height: 'auto', // Maintain aspect ratio
-  borderRadius: '10px', // Rounded corners for images
-  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Subtle shadow effect
+  marginBottom: '-10px',
+  borderRadius: '10px',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
 };
 
 const ImagePreview = ({ images }) => {
@@ -21,7 +22,7 @@ const ImagePreview = ({ images }) => {
     <div style={imagesContainer}>
       {images.map((img, index) => (
         <div key={index}>
-          <img src={URL.createObjectURL(img)} alt={`Preview ${index}`} style={image} />
+          <img style={image} src={URL.createObjectURL(img)} alt={`Preview ${index}`}/>
         </div>
       ))}
     </div>

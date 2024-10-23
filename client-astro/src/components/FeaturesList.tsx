@@ -5,10 +5,10 @@ const featuresContainer: React.CSSProperties = {
   display: 'flex',
   flexWrap: 'wrap',
   justifyContent: 'center',
-  margin: '20px 0',
+  margin: '10px 0',
   gap: '10px',
   alignItems: 'center',
-  fontSize: '.75em',
+  fontSize: '.6em',
 };
 
 const featureContainer: React.CSSProperties = {
@@ -17,7 +17,7 @@ const featureContainer: React.CSSProperties = {
   justifyContent: 'space-between',
   backgroundColor: '#d0c2d1',
   borderRadius: '10px',
-  padding: '8px 15px',
+  padding: '7.5px 10px',
   alignItems: 'center',
 };
 
@@ -27,7 +27,7 @@ const featureLink: React.CSSProperties = {
 }
 
 const featureName: React.CSSProperties = {
-  color: '#161616',
+  color: 'var(--background)',
 };
 
 const featureProbability: React.CSSProperties = {

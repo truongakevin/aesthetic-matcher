@@ -38,27 +38,28 @@ const ImageUploader = () => {
   };
 
   const mainContainer: React.CSSProperties = {
-    paddingBottom: '50px',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
+		height: '100%',
   };
-
+  
   const buttonContainer: React.CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    margin: '0 0 75px 0',
   };
 
-  const buttonStyle: React.CSSProperties = {
+  const button: React.CSSProperties = {
     fontFamily: 'Rowdies',
-    backgroundColor: '#f5d6f5',
+    backgroundColor: 'var(--secondary)',
     margin: '10px',
     padding: '20px 50px',
     border: 'none',
     borderRadius: '50px',
     cursor: 'pointer',
-    color: '#161616',
+    color: 'var(--background)',
     fontSize: 28,
   };
 
@@ -67,11 +68,12 @@ const ImageUploader = () => {
     justifyContent: 'center',
     alignItems: 'center',
     height: '100px',
+    margin: '25px 0 100px 0',
   };
 
-  const spinnerStyle: React.CSSProperties = {
-    border: '8px solid #616161',
-    borderTop: '8px solid #D39DD3',
+  const spinner: React.CSSProperties = {
+    border: '8px solid var(--secondary)',
+    borderTop: '8px solid var(--primary)',
     borderRadius: '50%',
     width: '60px',
     height: '60px',
@@ -80,14 +82,9 @@ const ImageUploader = () => {
 
   const donateButton: React.CSSProperties = {
     textDecoration: 'none',
-    color: '#161616',
-    backgroundColor: '#fa7d7d',
+    backgroundColor: '#ff9c9c',
     margin: '20px auto',
-    width: '200px',
-    padding: '10px',
-    border: 'none',
-    borderRadius: '50px',
-    cursor: 'pointer',
+    padding: '10px 20px',
     fontSize: 24,
   };
 
@@ -103,7 +100,10 @@ const ImageUploader = () => {
     </style>
       
     <ImagePreview images={selectedImages} />
-    <FeaturesList features={features} />
+
+    {features.length > 0 && (
+      <FeaturesList features={features} />
+    )}
 
     {!loading ? (
       <form onSubmit={handleSubmit}>
@@ -113,36 +113,30 @@ const ImageUploader = () => {
           {features.length === 0 ? (
             <>
               {selectedImages.length > 0 && (
-                <button type="submit" style={buttonStyle}>
+                <button type="submit" style={button}>
                   match
                 </button>
               )}
-              <button type="button" onClick={handleUploadClick} style={buttonStyle}>
+              <button type="button" onClick={handleUploadClick} style={button}>
                 upload
               </button>
             </>
           ) : (
-            <button type="button" onClick={() => { setFeatures([]); setSelectedImages([]); handleUploadClick(); }} style={buttonStyle}>
-              new upload
-            </button>
+            <>
+              <button type="button" onClick={() => { setFeatures([]); setSelectedImages([]); handleUploadClick(); }} style={button}>
+                new upload
+              </button>
+              <a href="https://ko-fi.com/truongakevin" target="_blank" rel="noopener noreferrer" style={{ ...button, ...donateButton }} >
+                buy me a beer
+              </a>
+            </>
           )}
         </div>
       </form>
     ) : (
       <div style={spinnerContainer}>
-        <div style={spinnerStyle}></div>
+        <div style={spinner}></div>
       </div>
-    )}
-
-    {features.length > 0 && (
-      <a
-        href="https://ko-fi.com/truongakevin"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={donateButton}
-      >
-        buy me a beer
-      </a>
     )}
 </div>
   );
