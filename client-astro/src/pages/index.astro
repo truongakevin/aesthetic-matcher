@@ -1,80 +1,10 @@
 ---
 // src/pages/index.astro
 
+import Layout from '../layouts/Layout.astro';
 import ImageUploader from '../components/ImageUploader.tsx';
 ---
 
-<html>
-	<head>
-		<!-- SEO -->
-		<title>aesthetic matcher</title>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Aesthetic Matcher: Use machine learning to identify aesthetic styles based on your images. Explore and discover unique aesthetics effortlessly.">
-		<meta name="keywords" content="aesthetic matcher, image analysis, machine learning, aesthetic styles, image upload, aesthetics">
-		<meta name="author" content="kevin truong">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="icon" href="/icon/amicon-d.png?" type="image/x-icon">
-
-		<meta property="og:title" content="Aesthetic Matcher">
-		<meta property="og:description" content="Use machine learning to identify aesthetic styles based on your images. Explore and discover unique aesthetics effortlessly.">
-		<meta property="og:image" content="/icon/amicon-d.png?">
-		<meta property="og:url" content="https://aesthetic.com">
-		<meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:title" content="Aesthetic Matcher">
-		<meta name="twitter:description" content="Identify aesthetic styles using machine learning with our Aesthetic Matcher tool.">
-		<meta name="twitter:image" content="/icon/amicon-d.png?">
-		
-		<script type="application/ld+json">
-			{
-			  "@context": "https://schema.org",
-			  "@type": "WebApplication",
-			  "name": "Aesthetic Matcher",
-			  "url": "https://kevinatruong.com",
-			  "description": "Aesthetic Matcher: Use machine learning to identify aesthetic styles based on your images."
-			}
-		</script>
-		
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-3GZQYV4JHM"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
-			gtag('config', 'G-3GZQYV4JHM');
-			</script>
-		</script>
-
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
-	</head>
-  <body>
-    <h1> aesthetic matcher </h1>
-    <ImageUploader client:load />
-	<!-- Google tag (gtag.js) -->
-
-  </body>
-</html>
-
-<style is:global>
-	html, body {
-		font-family: Rowdies;
-		font-size: 32px;
-		background-color: #161616;
-		margin: 0;
-		padding: 0;
-		height: 100%;
-	}
-	body {
-		text-align: center;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-	}
-	h1 {
-		padding: 50px 0 30px;
-		color: #D39DD3;
-		margin: 0;
-		line-height: .8;
-		letter-spacing: -.05em;
-	}
-</style>
+<Layout title="">
+	<ImageUploader client:load />
+</Layout>
