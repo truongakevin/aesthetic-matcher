@@ -53,9 +53,6 @@ const { title } = Astro.props;
 		<link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
 	</head>
     <body>
-		<a href="/">
-			<h1> aesthetic matcher </h1>
-		</a>
 		<main>
 			<slot />
 		</main>
@@ -63,8 +60,9 @@ const { title } = Astro.props;
 </html>
 <style is:global>
 	:root {
-		--primary: #D39DD3;
+		--primary: #d998d9;
 		--secondary: #f5d6f5;
+		--ternary: #cfabd2;
 		--text: #F2EFEA;
 		--background: #161616;
 	}
@@ -93,10 +91,11 @@ const { title } = Astro.props;
 	}
 	h1 {
 		margin: 75px 0 25px;
-		color: var(--secondary);
+		color: var(--primary);
 		line-height: .8;
 		letter-spacing: -.05em;
 	}
+	
 	main {
 		height: 100%;
 		display: flex;

@@ -15,7 +15,7 @@ const featureContainer: React.CSSProperties = {
   width: '85%',
   display: 'flex',
   justifyContent: 'space-between',
-  backgroundColor: '#d0c2d1',
+  backgroundColor: 'var(--ternary)',
   borderRadius: '10px',
   padding: '7.5px 10px',
   alignItems: 'center',

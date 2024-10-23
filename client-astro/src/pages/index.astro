@@ -2,9 +2,53 @@
 // src/pages/index.astro
 
 import Layout from '../layouts/Layout.astro';
-import ImageUploader from '../components/ImageUploader.tsx';
 ---
 
 <Layout title="">
-	<ImageUploader client:load />
+    <br>
+    <div class="welcome">
+        <h3>welcome to aesthetic matcher</h3>
+        <h5>match images to aesthetics using machine learning!</h5>
+        <a href="/about"><p>how it works</p></a>
+    </div>
+    <br>
+    <div class="match-button">
+        <a href="/match"> try it out! </a>
+    </div>
 </Layout>
+
+<style>
+    .welcome {
+        display: block;
+        color: var(--text);
+    }
+    h5 {
+        margin: 0;
+        font-weight: 50;
+    }
+    p {
+        margin: 0;
+        font-size: .5em;
+    }
+    .match-button {
+        text-align: center;
+        margin: 75px 0;
+        padding: 20px;
+    }
+    a {
+        color: var(--ternary);
+        text-decoration: underline;
+    }
+    .match-button a{
+        text-align: center;
+        background-color: var(--secondary);
+        margin: 10px auto;
+        padding: 20px 50px;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        color: var(--background);
+        font-size: 28;
+        text-decoration: none;
+    }
+</style>

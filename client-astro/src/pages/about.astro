@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="about - ">
+    <a href="/"><h1> aesthetic matcher </h1></a>
+    <div class="about">
+  
+        <h2>What is the Aesthetic Matcher?</h2>
+        <p>
+          The Aesthetic Matcher was developed to find a reliable way to determine the aesthetic of an image. This tool aims to help users better understand and classify the aesthetics that resonate with them, catering to anyone interested in aesthetics—whether you are an artist looking to enhance your designs, a creator seeking inspiration for your projects, or simply someone wanting to learn more about different aesthetic styles.
+        </p>
+      
+        <h2>How It Works</h2>
+        <p>
+          Users can upload one or more images, which are then processed through a fine-tuned version of OpenAI's CLIP model meant for zero-shot image classification. This model was trained using a custom made dataset of all the information and images from the <a href="https://aesthetics.fandom.com/wiki/Aesthetics_Wiki">Aesthetics Wiki</a>. It translates the uploaded images into distinct aesthetic features and styles, providing users with insights into the visual elements present in their uploads. 
+        </p>
+      
+        <h2>Why Aesthetic Matcher?</h2>
+        <p>
+          The Aesthetic Matcher stands out as a robust solution in a landscape where most existing tools for image-to-aesthetic classification are either unreliable or overly simplistic. Through my research, I couln't find a precise and reliable means of identifying aesthetics so I created my own dataset and dedicated countless hours to fine-tuning and training the model, ultimately developing a solution that delivers accurate aesthetic classifications. 
+        </p>
+        <p>
+          Looking ahead, I hope to expand the dataset further and upgrade the equipment for improved performance. Additionally, I plan to implement user submissions, allowing visitors to contribute by labeling images with their corresponding aesthetics, which will help enhance the model's dataset. I encourage you to try the Aesthetic Matcher and explore its capabilities—your feedback is invaluable as I continue to refine and improve this tool!
+        </p>
+
+        <h2>Get in Touch</h2>
+        <p>
+          Feel free to <a href="https://ko-fi.com/truongakevin" target="_blank">support the project</a> if you find it useful, or take a look at my <a href="https://kevinatruong.com/" target="_blank">personal website</a> if you want to contact me about any questions or feedback.
+        </p>
+
+        <div class="match-button">
+            <a href="/match"> try it out! </a>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .about {
+        font-size: .75em;
+        color: var(--text);
+        line-height: .95;
+        padding: 15px;
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: left;
+    }
+    h2, h3 {
+        color: var(--ternary);
+        margin: 0 0 0 0;
+    }
+    p {
+        font-weight: 100;
+        margin-top: 10px;
+    }
+    .match-button {
+        text-align: center;
+        margin: 50px 0;
+        padding: 20px;
+    }
+    .about a {
+        color: var(--secondary);
+        text-decoration: underline;
+    }
+    .match-button a{
+        text-align: center;
+        background-color: var(--secondary);
+        margin: 10px auto;
+        padding: 20px 50px;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        color: var(--background);
+        font-size: 28;
+        text-decoration: none;
+    }
+</style>
