@@ -14,7 +14,7 @@ const image: React.CSSProperties = {
   width: '300px',
   marginBottom: '-10px',
   borderRadius: '10px',
-  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+  boxShadow: '1px 1px 10px -8px var(--text)',
 };
 
 const ImagePreview = ({ images }) => {

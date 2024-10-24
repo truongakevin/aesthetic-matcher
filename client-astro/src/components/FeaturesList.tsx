@@ -19,6 +19,7 @@ const featureContainer: React.CSSProperties = {
   borderRadius: '10px',
   padding: '7.5px 10px',
   alignItems: 'center',
+  boxShadow: '0 0 7px -3px var(--text)',
 };
 
 const featureLink: React.CSSProperties = {
