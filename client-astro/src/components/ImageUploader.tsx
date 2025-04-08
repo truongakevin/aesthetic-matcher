@@ -22,7 +22,7 @@ const ImageUploader = () => {
     selectedImages.forEach((image) => formData.append('images', image));
 
     try {
-      const { data } = await axios.post('https://kevinatruong.com/api/flask-am', formData, {
+      const { data } = await axios.post('https://kevinatruong.com/api/image-analysis/am', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setFeatures(data);
