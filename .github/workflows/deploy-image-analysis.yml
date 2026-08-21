@@ -1,0 +1,84 @@
+name: Deploy shared image-analysis source
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "backend/image-analysis/**"
+      - "deployment/systemd/image-analysis-flask.service"
+      - ".github/workflows/deploy-image-analysis.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aesthetic-matcher-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy existing image-analysis application
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment: production
+    env:
+      SERVER_HOST: ${{ vars.SERVER_HOST }}
+      SERVER_PORT: ${{ vars.SERVER_PORT }}
+      SERVER_USER: ${{ vars.SERVER_USER }}
+
+    steps:
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_ed25519 ~/.ssh/known_hosts
+
+      - name: Update source and restart existing application
+        run: |
+          ssh -i ~/.ssh/id_ed25519 -p "${SERVER_PORT}" \
+            "${SERVER_USER}@${SERVER_HOST}" 'bash -se' <<'REMOTE'
+          set -eu
+          project=/srv/kevin/projects/aesthetic-matcher
+          runtime=/srv/kevin/runtime/venvs/image-analysis
+          if [ ! -d "$project/.git" ]; then
+            git clone --branch main --single-branch \
+              https://github.com/truongakevin/aesthetic-matcher.git "$project"
+          else
+            git -C "$project" fetch origin main
+            git -C "$project" checkout main
+            git -C "$project" merge --ff-only origin/main
+          fi
+          install -d /srv/kevin/runtime/venvs
+          install -d /srv/kevin/data/image-analysis/uploads
+          if [ -d /var/www/kevinatruong.com/api/image-analysis/flask/uploads ]; then
+            rsync -a \
+              /var/www/kevinatruong.com/api/image-analysis/flask/uploads/ \
+              /srv/kevin/data/image-analysis/uploads/
+          fi
+          if [ ! -x "$runtime/bin/python" ]; then
+            python3 -m venv "$runtime"
+          fi
+          "$runtime/bin/python" -m pip install \
+            --requirement "$project/backend/image-analysis/requirements.txt"
+          sudo ln -sfn \
+            "$project/deployment/systemd/image-analysis-flask.service" \
+            /etc/systemd/system/image-analysis-flask.service
+          sudo systemctl daemon-reload
+          sudo systemctl restart image-analysis-flask.service
+          for attempt in $(seq 1 60); do
+            status=$(curl --silent --output /dev/null --write-out '%{http_code}' \
+              http://127.0.0.1:52525/image-analysis/am || true)
+            if [ "$status" = "405" ]; then
+              exit 0
+            fi
+            sleep 2
+          done
+          sudo systemctl status image-analysis-flask.service --no-pager
+          exit 1
+          REMOTE

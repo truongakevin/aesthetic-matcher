@@ -1,0 +1,18 @@
+[Unit]
+Description=Shared image-analysis Flask backend
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=kevintruong
+Group=kevintruong
+WorkingDirectory=/srv/kevin/data/image-analysis
+EnvironmentFile=/srv/kevin/config/env/image-analysis.env
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/srv/kevin/runtime/venvs/image-analysis/bin/python /srv/kevin/projects/aesthetic-matcher/backend/image-analysis/app.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
