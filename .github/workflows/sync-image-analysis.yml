@@ -1,0 +1,58 @@
+name: Sync image analysis to Pic-to-Playlist
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "backend/image-analysis/**"
+      - ".github/workflows/sync-image-analysis.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: image-analysis-source-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Copy canonical source
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out canonical source
+        uses: actions/checkout@v7.0.1
+
+      - name: Configure Pic-to-Playlist deploy key
+        env:
+          SYNC_KEY: ${{ secrets.IMAGE_ANALYSIS_SYNC_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_GITHUB_KNOWN_HOSTS }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$SYNC_KEY" > ~/.ssh/id_ed25519
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_ed25519 ~/.ssh/known_hosts
+
+      - name: Synchronize source and push direct to main
+        run: |
+          set -eu
+          sync_dir=$(mktemp -d)
+          trap 'rm -rf "$sync_dir"' EXIT
+          git clone --branch main --single-branch \
+            git@github.com:truongakevin/pic-to-playlist.git "$sync_dir"
+          install -d "$sync_dir/backend/image-analysis"
+          rsync -a --delete \
+            backend/image-analysis/ \
+            "$sync_dir/backend/image-analysis/"
+          if [ -z "$(git -C "$sync_dir" status --porcelain -- backend/image-analysis)" ]; then
+            exit 0
+          fi
+          git -C "$sync_dir" config user.name "Aesthetic Matcher sync"
+          git -C "$sync_dir" config user.email "actions@users.noreply.github.com"
+          git -C "$sync_dir" add -- backend/image-analysis
+          git -C "$sync_dir" commit -m \
+            "sync image analysis from aesthetic matcher ${GITHUB_SHA}"
+          git -C "$sync_dir" push origin main
