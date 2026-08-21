@@ -1,27 +1,68 @@
-# aesthetic matcher
-A web app that classifies uploaded photos into aesthetics using a fine-tuned CLIP model and a custom dataset scraped from the aesthetics wiki.
+# Aesthetic Matcher
+
+Aesthetic Matcher classifies uploaded images into visual aesthetics using a
+custom image-analysis service and research derived from Aesthetics Wiki data.
+
+The current public application is available at
+[aestheticmatcher.com](https://aestheticmatcher.com).
 
 <p align="center">
-  <img src="am-screenshot1.png" alt="main page" width="250" height="475"/>
-  <img src="am-screenshot2.png" alt="processed images" width="250" height="475"/>
-  <img src="am-screenshot3.png" alt="post process menu" width="250" height="475"/>
-  <br>
-  <a href="https://kevinatruong.com/aesthetic-matcher">Aesthetic Matcher Demo Website</a>
-  <br>
+  <img src="docs/images/am-screenshot1.png" alt="Main page" width="250" height="475" />
+  <img src="docs/images/am-screenshot2.png" alt="Processed images" width="250" height="475" />
+  <img src="docs/images/am-screenshot3.png" alt="Post-processing menu" width="250" height="475" />
 </p>
 
-## Features
+## Repository layout
 
-- Upload images to be classified into various aesthetics.
-- Fine-tuned CLIP model for enhanced classification accuracy.
-- Web scraper for aesthetic descriptions and origins from Aesthetics Wiki.
-- Built with React Native Expo front end and Flask backend
+```text
+aesthetic-matcher/
+├── web/
+│   └── astro/                 # Current public Astro application
+├── legacy/
+│   ├── expo-client/           # Previous Expo and React Native client
+│   └── flask-backend/         # Original backend prototype
+├── research/
+│   ├── data-refinement/       # Scraping and preprocessing tools
+│   └── fine-tuning/           # Model experiments and notebooks
+├── docs/
+│   ├── ARCHITECTURE.md
+│   └── images/
+└── .github/workflows/         # Build and deployment pipeline
+```
 
-## Project Structure
+The production image-analysis API is maintained separately in the
+`image-analysis` project. The Flask code in `legacy/flask-backend` is retained
+for history and comparison while useful logic is consolidated into that
+service.
+
+## Develop the web application
+
+```bash
+cd web/astro
+npm ci
+npm run dev
 ```
-aesthetic-matcher
-├── client/                  # React Native frontend code
-├── datarefinement/           # Scripts for data refinement and preprocessing
-├── finetuning/               # Model fine-tuning scripts (PyTorch, Hugging Face)
-└── server/                   # Flask server backend for handling image processing
+
+## Build
+
+```bash
+cd web/astro
+npm ci
+npm run build
 ```
+
+Static output is written to `web/astro/dist`.
+
+## Deployment
+
+`.github/workflows/deploy.yml` builds the Astro site and deploys the generated
+files to `/srv/kevin/web/aestheticmatcher.com` on the Linux server. Production
+credentials are supplied through the GitHub `production` environment and are
+never stored in this repository.
+
+## Research data
+
+Research scripts and notebooks are versioned. Downloaded images, generated
+datasets, model output, dependencies, and local environments are not committed.
+Server-side research data belongs under
+`/srv/kevin/data/aesthetic-matcher/research` when Linux processing is needed.

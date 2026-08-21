@@ -46,7 +46,7 @@ print("CUDA Availability: ", torch.cuda.is_available(), flush=True)
 #         print(f"Error processing {url}: {e}")
 
 # Path to the folder containing images
-image_folder_path = "datarefinement/aesthetics_images_3_cleaned/Dark Nymphet"
+image_folder_path = "research/data-refinement/aesthetics_images_3_cleaned/Dark Nymphet"
 
 # Initialize an empty list to store images
 images = []

@@ -1,0 +1,92 @@
+name: Build and deploy Aesthetic Matcher
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aesthetic-matcher-production
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: web/astro
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v7.0.1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7.0.0
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/astro/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Upload static build
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: aesthetic-matcher-web
+          path: web/astro/dist
+          if-no-files-found: error
+          retention-days: 7
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: production
+    env:
+      SERVER_HOST: ${{ vars.SERVER_HOST }}
+      SERVER_PORT: ${{ vars.SERVER_PORT }}
+      SERVER_USER: ${{ vars.SERVER_USER }}
+
+    steps:
+      - name: Download static build
+        uses: actions/download-artifact@v8.0.1
+        with:
+          name: aesthetic-matcher-web
+          path: artifact
+
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_ed25519 ~/.ssh/known_hosts
+
+      - name: Deploy static site
+        run: |
+          rsync -az --delete \
+            -e "ssh -i ~/.ssh/id_ed25519 -p ${SERVER_PORT}" \
+            artifact/ \
+            "${SERVER_USER}@${SERVER_HOST}:/srv/kevin/web/aestheticmatcher.com/"
+
+      - name: Verify deployed files
+        run: |
+          ssh -i ~/.ssh/id_ed25519 -p "${SERVER_PORT}" \
+            "${SERVER_USER}@${SERVER_HOST}" \
+            "test -s /srv/kevin/web/aestheticmatcher.com/index.html"
+
+      - name: Verify public site
+        run: curl --fail --location --retry 3 https://aestheticmatcher.com/

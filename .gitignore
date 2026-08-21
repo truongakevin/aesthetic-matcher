@@ -1,23 +1,29 @@
-# /client
-client/node_modules/
-client/.expo/
-client/.vscode/
-client/android/
-client/ios/
-client/dist/
+# JavaScript and generated frontend files
+**/node_modules/
+**/.astro/
+**/.expo/
+**/.vscode/
+**/dist/
+**/build/
 
-# /datarefinement
-/datarefinement/aesthetics*
-/datarefinement/aesthetic*
+# Generated native projects from the legacy Expo client
+/legacy/expo-client/android/
+/legacy/expo-client/ios/
 
-# /finetuning
-/finetuning/aesthetics*
-/finetuning/output
+# Python environments and caches
+**/.venv/
+**/venv/
+**/__pycache__/
+*.py[cod]
 
-# /server
+# Generated and downloaded research data
+/research/data-refinement/aesthetics*
+/research/data-refinement/aesthetic*
+/research/fine-tuning/aesthetics*
+/research/fine-tuning/output/
 
-# local env files
-*__pycache__*
+# Local configuration and operating-system files
 .env
-*.sh
+.env.*
+!.env.example
 .DS_Store
