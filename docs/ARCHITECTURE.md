@@ -2,7 +2,7 @@
 
 ## Active application
 
-The public site is the static Astro application in `web/astro`.
+The public site is the static Astro application in `frontend`.
 
 ```text
 Browser
@@ -22,9 +22,11 @@ as a separate systemd service.
 
 ## Image analysis
 
-The production Flask and Node image-analysis components support more than one
-application. Their canonical source belongs in the separate `image-analysis`
-project. Code in `legacy/flask-backend` records the original Aesthetic Matcher
+The production image-analysis backend supports Aesthetic Matcher and
+Pic-to-Playlist. Its canonical source belongs in `backend/image-analysis` in
+this repository. A synchronized copy is maintained in the Pic-to-Playlist
+repository for local development, but only Aesthetic Matcher deploys the
+shared GPU service. Code in `legacy/flask-backend` records the original
 implementation and must not be treated as the production service.
 
 ## Legacy client

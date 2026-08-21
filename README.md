@@ -16,8 +16,9 @@ The current public application is available at
 
 ```text
 aesthetic-matcher/
-├── web/
-│   └── astro/                 # Current public Astro application
+├── frontend/                  # Current public Astro application
+├── backend/
+│   └── image-analysis/        # Canonical shared GPU backend
 ├── legacy/
 │   ├── expo-client/           # Previous Expo and React Native client
 │   └── flask-backend/         # Original backend prototype
@@ -30,15 +31,16 @@ aesthetic-matcher/
 └── .github/workflows/         # Build and deployment pipeline
 ```
 
-The production image-analysis API is maintained separately in the
-`image-analysis` project. The Flask code in `legacy/flask-backend` is retained
-for history and comparison while useful logic is consolidated into that
-service.
+The production image-analysis API is owned by this repository under
+`backend/image-analysis`. Pic-to-Playlist receives a synchronized copy for
+local development, while Aesthetic Matcher remains the only deployment owner.
+The Flask code in `legacy/flask-backend` is retained as historical source and
+is not the production backend.
 
 ## Develop the web application
 
 ```bash
-cd web/astro
+cd frontend
 npm ci
 npm run dev
 ```
@@ -46,12 +48,12 @@ npm run dev
 ## Build
 
 ```bash
-cd web/astro
+cd frontend
 npm ci
 npm run build
 ```
 
-Static output is written to `web/astro/dist`.
+Static output is written to `frontend/dist`.
 
 ## Deployment
 
