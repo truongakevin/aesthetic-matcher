@@ -10,7 +10,7 @@ Group=kevintruong
 WorkingDirectory=/srv/kevin/data/image-analysis
 EnvironmentFile=/srv/kevin/config/env/image-analysis.env
 Environment=PYTHONUNBUFFERED=1
-ExecStart=/srv/kevin/runtime/venvs/image-analysis/bin/python /srv/kevin/projects/aesthetic-matcher/backend/image-analysis/app.py
+ExecStart=/srv/kevin/runtime/venvs/image-analysis/bin/gunicorn --bind 127.0.0.1:52525 --workers 1 --threads 1 --timeout 180 --access-logfile - --error-logfile - --pythonpath /srv/kevin/projects/aesthetic-matcher/backend/image-analysis app:app
 Restart=always
 RestartSec=5
 

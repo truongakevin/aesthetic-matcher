@@ -29,6 +29,10 @@ repository for local development, but only Aesthetic Matcher deploys the
 shared GPU service. Code in `legacy/flask-backend` records the original
 implementation and must not be treated as the production service.
 
+Production uses one Gunicorn worker and an application-level inference lock.
+Requests from both applications share the same queue so only one inference
+operation uses the GPU at a time.
+
 ## Legacy client
 
 `legacy/expo-client` contains the earlier Expo and React Native application.
