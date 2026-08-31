@@ -5,8 +5,10 @@ import Layout from '../layouts/Layout.astro';
 import ImageUploader from '../components/ImageUploader.tsx';
 ---
 
-<Layout title="">
+<Layout
+	title="Match Your Image"
+	description="Upload an image and identify its closest visual aesthetics with Aesthetic Matcher."
+>
 	<a href="/"><h1> aesthetic matcher </h1></a>
 	<ImageUploader client:load />
 </Layout>
-
