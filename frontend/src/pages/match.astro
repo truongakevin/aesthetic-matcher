@@ -2,6 +2,7 @@
 // src/pages/index.astro
 
 import Layout from '../layouts/Layout.astro';
+import FeedbackForm from '../components/FeedbackForm.tsx';
 import ImageUploader from '../components/ImageUploader.tsx';
 ---
 
@@ -11,4 +12,87 @@ import ImageUploader from '../components/ImageUploader.tsx';
 >
 	<a href="/"><h1> aesthetic matcher </h1></a>
 	<ImageUploader client:load />
+	<FeedbackForm client:load />
 </Layout>
+
+<style is:global>
+	.feedback-panel {
+		box-sizing: border-box;
+		width: min(560px, calc(100% - 40px));
+		margin: 0 auto 48px;
+		padding: 18px 22px;
+		border: 2px solid var(--ternary);
+		border-radius: 22px;
+		color: var(--text);
+		font-family: sans-serif;
+		font-size: 16px;
+		text-align: left;
+	}
+	.feedback-panel summary {
+		color: var(--secondary);
+		font-family: Rowdies, sans-serif;
+		font-size: 20px;
+		text-align: center;
+		cursor: pointer;
+	}
+	.feedback-form {
+		display: grid;
+		gap: 9px;
+		margin-top: 20px;
+	}
+	.feedback-form label {
+		margin-top: 7px;
+	}
+	.feedback-form textarea,
+	.feedback-form input {
+		box-sizing: border-box;
+		width: 100%;
+		border: 2px solid transparent;
+		border-radius: 10px;
+		padding: 11px 12px;
+		background: #f7edf7;
+		color: #161616;
+		font: inherit;
+	}
+	.feedback-form textarea:focus,
+	.feedback-form input:focus {
+		border-color: var(--primary);
+		outline: none;
+	}
+	.feedback-form button,
+	.feedback-link-button {
+		justify-self: center;
+		margin-top: 12px;
+		border: 0;
+		border-radius: 30px;
+		padding: 11px 22px;
+		background: var(--secondary);
+		color: var(--background);
+		font-family: Rowdies, sans-serif;
+		font-size: 16px;
+		cursor: pointer;
+	}
+	.feedback-form button:disabled {
+		opacity: .65;
+		cursor: wait;
+	}
+	.feedback-error {
+		margin: 5px 0 0;
+		color: #ffb4b4;
+	}
+	.feedback-honeypot {
+		position: absolute;
+		left: -10000px;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+	}
+	.feedback-thanks {
+		margin: 0;
+		text-align: center;
+	}
+	.feedback-link-button {
+		display: block;
+		margin: 14px auto 0;
+	}
+</style>

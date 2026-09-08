@@ -33,6 +33,24 @@ Production uses one Gunicorn worker and an application-level inference lock.
 Requests from both applications share the same queue so only one inference
 operation uses the GPU at a time.
 
+## Feedback
+
+The matcher page has a compact general-feedback form. Its public request uses
+the existing image-analysis API route, but delivery is independent of model
+inference:
+
+```text
+Browser
+  -> Nginx
+  -> image-analysis feedback endpoint
+      -> Kevin Index private API (Inbox note)
+      -> Gmail SMTP (notification)
+```
+
+Kevin Index and email credentials remain in the centralized Linux environment
+file. The browser never receives either credential and cannot reach Kevin Index
+directly.
+
 ## Legacy client
 
 `legacy/expo-client` contains the earlier Expo and React Native application.

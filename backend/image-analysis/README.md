@@ -14,3 +14,23 @@ or processing simultaneous Aesthetic Matcher and Pic-to-Playlist requests.
 
 Production configuration, model caches, Python environments, and uploaded
 images remain outside Git.
+
+## Request safety
+
+The API validates request size, image count, decoded pixel count, and image
+format before inference.
+
+See `.env.example` for the supported limits and defaults.
+
+## Feedback delivery
+
+`POST /image-analysis/am/feedback` accepts the small feedback form on the
+matcher page. Valid submissions are written as notes to the configured Kevin
+Index folder, then an email notification is sent to Kevin. The route does not
+store uploaded images or matcher results.
+
+The production environment must provide `KEVIN_INDEX_API_URL`,
+`FEEDBACK_EMAIL_USER`, `FEEDBACK_EMAIL_PASSWORD`, and `FEEDBACK_EMAIL_TO`.
+The endpoint rejects requests until all delivery settings are present. A
+honeypot, request validation, idempotency keys, and a per-address rate limit
+reduce accidental duplicates and basic form spam.
