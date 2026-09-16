@@ -113,7 +113,6 @@ const ImageUploader = () => {
                 >
                   new upload
                 </button>
-                <FeedbackForm />
                 <a href="https://ko-fi.com/truongakevin" target="_blank" rel="noopener noreferrer" style={{ ...button, ...donateButton }}>
                   buy me a beer
                 </a>
@@ -124,6 +123,7 @@ const ImageUploader = () => {
       ) : (
         <div style={spinnerContainer} role="status" aria-label="Matching images"><div style={spinner}></div></div>
       )}
+      {features.length > 0 && <FeedbackForm />}
     </div>
   );
 };
