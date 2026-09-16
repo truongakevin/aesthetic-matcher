@@ -69,6 +69,7 @@ const ImageUploader = () => {
   const handleUploadClick = () => fileInputRef.current?.click();
   const mainContainer: React.CSSProperties = {
     display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%',
+    paddingBottom: features.length > 0 ? '48px' : undefined,
   };
   const buttonContainer: React.CSSProperties = {
     display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 0 75px 0',
