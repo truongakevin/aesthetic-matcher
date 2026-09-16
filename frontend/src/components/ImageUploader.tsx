@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import FeaturesList from './FeaturesList.tsx';
+import FeedbackForm from './FeedbackForm.tsx';
 import ImagePreview from './ImagePreview.tsx';
 
 const API_URL = import.meta.env.PUBLIC_IMAGE_ANALYSIS_URL
@@ -112,6 +113,7 @@ const ImageUploader = () => {
                 >
                   new upload
                 </button>
+                <FeedbackForm />
                 <a href="https://ko-fi.com/truongakevin" target="_blank" rel="noopener noreferrer" style={{ ...button, ...donateButton }}>
                   buy me a beer
                 </a>

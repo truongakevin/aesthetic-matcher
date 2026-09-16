@@ -2,7 +2,6 @@
 // src/pages/index.astro
 
 import Layout from '../layouts/Layout.astro';
-import FeedbackForm from '../components/FeedbackForm.tsx';
 import ImageUploader from '../components/ImageUploader.tsx';
 ---
 
@@ -12,7 +11,6 @@ import ImageUploader from '../components/ImageUploader.tsx';
 >
 	<a href="/"><h1> aesthetic matcher </h1></a>
 	<ImageUploader client:load />
-	<FeedbackForm client:load />
 </Layout>
 
 <style is:global>
