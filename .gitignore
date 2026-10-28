@@ -28,3 +28,5 @@
 .env.*
 !.env.example
 .DS_Store
+
+/research/catalog/generated/

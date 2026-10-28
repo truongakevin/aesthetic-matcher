@@ -15,7 +15,12 @@ from werkzeug.exceptions import RequestEntityTooLarge
 
 from feedback import feedback_blueprint
 from genrelist import genres
-from summarized_aesthetics import aesthetics
+from summarized_aesthetics import aesthetics as existing_aesthetics
+from aesthetic_catalog import display_name, upsert_aesthetics
+from wiki_aesthetics import wiki_aesthetics
+
+aesthetics = upsert_aesthetics(existing_aesthetics, wiki_aesthetics)
+aesthetic_names = {prompt: display_name(prompt, wiki_aesthetics) for prompt in aesthetics}
 
 
 load_dotenv()
@@ -113,10 +118,10 @@ def analyze_image_am():
         image.resize((new_width, new_height)).save(save_path)
     with open(os.path.join(save_dir, "probabilities.txt"), "w", encoding="utf-8") as output:
         for feature, probability in probabilities:
-            output.write(f"{feature.split(',')[0]}: {probability}\n")
+            output.write(f"{aesthetic_names[feature]}: {probability}\n")
 
     return jsonify([
-        {"feature": feature.split(",")[0], "probability": probability}
+        {"feature": aesthetic_names[feature], "probability": probability}
         for feature, probability in probabilities
     ])
 
